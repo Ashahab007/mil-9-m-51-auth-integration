@@ -4,13 +4,22 @@ import { NavLink } from "react-router";
 const NavBar = () => {
   const links = (
     <>
-      <NavLink to="/">
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "underline" : "")}
+      >
         <li className="mr-6">Home</li>
       </NavLink>
-      <NavLink to="/login">
+      <NavLink
+        to="/login"
+        className={({ isActive }) => (isActive ? "underline" : "")}
+      >
         <li className="mr-6">Login</li>
       </NavLink>
-      <NavLink to="/register">
+      <NavLink
+        to="/register"
+        className={({ isActive }) => (isActive ? "underline" : "")}
+      >
         {" "}
         <li className="mr-6">Register</li>
       </NavLink>
