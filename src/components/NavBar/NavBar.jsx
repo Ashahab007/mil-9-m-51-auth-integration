@@ -1,7 +1,13 @@
-import React from "react";
+import React, { use } from "react";
 import { NavLink } from "react-router";
+import AuthProvider from "../../context/AuthProvider";
+import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
+  // 1.8 get the data by using AuthContext in use
+  const userInfo = use(AuthContext);
+  console.log(userInfo); //{email: 'pot@alu.com'}
+
   const links = (
     <>
       <NavLink

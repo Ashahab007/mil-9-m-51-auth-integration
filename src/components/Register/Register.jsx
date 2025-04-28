@@ -1,7 +1,36 @@
-import React from "react";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { use } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+// import { auth } from "../../firebase.init";
 
 const Register = () => {
+  // 1.12 check that are we getting the useInfo here
+  // const userInfo = use(AuthContext);
+  // console.log(userInfo); //as the useInfo contains the function createUser so destructured it in 1.13
+
+  // 1.13 destructuring it for calling and commented the 1.12
+
+  const { createUser } = use(AuthContext);
+  console.log(createUser);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    // 1.9 but there is a problem to declare createUserWithEmailAndPassword in registration form i.e it will accessible only here we cannot share the data overall application. That's why it's commented. We will do the following things by divide it in segment.
+
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((result) => console.log(result.user))
+    //   .catch((err) => console.log(err.message));
+
+    // 1.14 Now call the function to get email and password. Now Fill the registration and see the data in console.
+    createUser(email, password)
+      .then((result) => console.log(result.user))
+      .catch((err) => console.log(err.message));
+  };
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col ">
@@ -10,13 +39,28 @@ const Register = () => {
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
-            <form className="fieldset">
+            <form onSubmit={handleOnSubmit} className="fieldset">
               <label className="label">Name</label>
-              <input type="text" className="input" placeholder="Name" />
+              <input
+                type="text"
+                className="input"
+                placeholder="Name"
+                name="name"
+              />
               <label className="label">Email</label>
-              <input type="email" className="input" placeholder="Email" />
+              <input
+                type="email"
+                className="input"
+                placeholder="Email"
+                name="email"
+              />
               <label className="label">Password</label>
-              <input type="password" className="input" placeholder="Password" />
+              <input
+                type="password"
+                className="input"
+                placeholder="Password"
+                name="password"
+              />
               <div>
                 <p>
                   Already have account?
@@ -25,7 +69,7 @@ const Register = () => {
                   </Link>
                 </p>
               </div>
-              <button className="btn btn-neutral mt-4">Login</button>
+              <button className="btn btn-neutral mt-4">Register</button>
             </form>
           </div>
         </div>
