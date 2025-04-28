@@ -2,6 +2,7 @@ import React from "react";
 import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase.init";
@@ -28,6 +29,16 @@ const AuthProvider = ({ children }) => {
     // 2.1
     createLoginUser,
   };
+
+  //   3.0 Now if i fil the login form and reload it the auth state is changed and data is erased. To persist the data use go to firebase => Manage user => "Get the currently signed-in user" get the function onAuthStateChange. It works as observer i.e if change the state of the form which is login, logout and registration. following code is save the current user upon the state changed. by reload u can see it in console.
+
+  onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+      console.log("has current user", currentUser);
+    } else {
+      console.log("current user", currentUser);
+    }
+  });
   // 1.3 apply AuthContext, pass userInfo in value as props
   return (
     <AuthContext value={userInfo}>
