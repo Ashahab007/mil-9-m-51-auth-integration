@@ -9,8 +9,23 @@ const NavBar = () => {
   console.log(userInfo); */ //{email: 'pot@alu.com'}
 
   // 3.4 now we will destructure only passed user from userInfo
-  const { user } = use(AuthContext);
-  console.log(" passed user from NavBar", user);
+  // 4.2 receive createSignOutUser and destructure it
+  const { user, createSignOutUser } = use(AuthContext);
+  console.log(" passed user to NavBar", user);
+  console.log(
+    " receive createSignOutUser from AuthProvider",
+    createSignOutUser
+  );
+
+  // 4.4 created handleSignOut
+  const handleSignOut = () => {
+    createSignOutUser()
+      .then(() => {
+        // remember this then will not take any parameter for signOut
+        console.log("signout successful");
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   const links = (
     <>
@@ -33,6 +48,24 @@ const NavBar = () => {
         {" "}
         <li className="mr-6">Register</li>
       </NavLink>
+      {/* 4.5 created two button Order and mylist with component and show that button conditionally by login and sign out. If user logged in the created button will show if nor it will hide */}
+      {user && (
+        <>
+          <NavLink
+            to="/order"
+            className={({ isActive }) => (isActive ? "underline" : "")}
+          >
+            <li className="mr-6">Order</li>
+          </NavLink>
+          <NavLink
+            to="/mylist"
+            className={({ isActive }) => (isActive ? "underline" : "")}
+          >
+            {" "}
+            <li className="mr-6">My List</li>
+          </NavLink>
+        </>
+      )}
     </>
   );
   return (
@@ -70,7 +103,13 @@ const NavBar = () => {
       <div className="navbar-end">
         {/* 3.5 now my button will toggle if user is sign in or sign out  */}
         {user ? (
-          <a className="btn">Sign Out</a>
+          // 4.3 create handleSignOut & showing the user email
+          <>
+            {user.email}
+            <a onClick={handleSignOut} className="btn">
+              Sign Out
+            </a>
+          </>
         ) : (
           <Link className="btn" to="/login">
             Log In

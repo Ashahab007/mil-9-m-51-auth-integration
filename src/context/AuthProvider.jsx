@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { auth } from "../firebase.init";
 
@@ -22,6 +23,12 @@ const AuthProvider = ({ children }) => {
   const createLoginUser = (email, password) => {
     // now from 'Sign in a user with an email address and password' from firebase documentation return the function
     return signInWithEmailAndPassword(auth, email, password);
+  };
+
+  // 4.0 Now my requirement is onclick to sign out button the user will signout. that's why createSignOutUser is created like createLoginUser. call the signOut() function from documentation from password authentication 'Enable email enumeration protection'.
+
+  const createSignOutUser = () => {
+    return signOut(auth); //takes one parameter auth
   };
 
   //   3.0 Now if i fill the login form and reload it the auth state is changed and data is erased. To persist the data use go to firebase => Manage user => "Get the currently signed-in user" get the function onAuthStateChange. It works as observer i.e if change the state  of the form in firebase which is login, logout and registration. following code save the current user upon the state changed. by reload u can see it in console. the following code is created for checking purpose that's why commented.
@@ -63,6 +70,8 @@ const AuthProvider = ({ children }) => {
     createLoginUser,
     // 3.3 pass the user in userInfo so we can get the user data from any where from the application
     user,
+    // 4.1 pass to the context
+    createSignOutUser,
   };
 
   // 1.3 apply AuthContext, pass userInfo in value as props
