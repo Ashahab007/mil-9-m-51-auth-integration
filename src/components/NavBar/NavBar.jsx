@@ -1,12 +1,16 @@
 import React, { use } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import AuthProvider from "../../context/AuthProvider";
 import { AuthContext } from "../../context/AuthContext";
 
 const NavBar = () => {
   // 1.8 get the data by using AuthContext in use
-  const userInfo = use(AuthContext);
-  console.log(userInfo); //{email: 'pot@alu.com'}
+  /* const userInfo = use(AuthContext);
+  console.log(userInfo); */ //{email: 'pot@alu.com'}
+
+  // 3.4 now we will destructure only passed user from userInfo
+  const { user } = use(AuthContext);
+  console.log(" passed user from NavBar", user);
 
   const links = (
     <>
@@ -64,7 +68,14 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {/* 3.5 now my button will toggle if user is sign in or sign out  */}
+        {user ? (
+          <a className="btn">Sign Out</a>
+        ) : (
+          <Link className="btn" to="/login">
+            Log In
+          </Link>
+        )}
       </div>
     </div>
   );
