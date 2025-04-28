@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 // import { auth } from "../../firebase.init";
 
 const Register = () => {
-  // 1.12 check that are we getting the useInfo here
+  // 1.12 checking that are we getting the useInfo here
   // const userInfo = use(AuthContext);
   // console.log(userInfo); //as the useInfo contains the function createUser so destructured it in 1.13
 
@@ -14,19 +14,19 @@ const Register = () => {
   const { createUser } = use(AuthContext);
   console.log(createUser);
 
-  const handleOnSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    // 1.9 but there is a problem to declare createUserWithEmailAndPassword in registration form i.e it will accessible only here we cannot share the data overall application. That's why it's commented. We will do the following things by divide it in segment.
+    // 1.9 but there is a problem to declare createUserWithEmailAndPassword in registration form as per firebase documentation way i.e it will accessible only here we cannot share the data overall application. That's why it's commented. We will do the following things by divide it in segment.
 
     // createUserWithEmailAndPassword(auth, email, password)
     //   .then((result) => console.log(result.user))
     //   .catch((err) => console.log(err.message));
 
-    // 1.14 Now call the function to get email and password. Now Fill the registration and see the data in console.
+    // 1.14 Now call the function to get email and password. Now Fill up the registration and see the data in console.
     createUser(email, password)
       .then((result) => console.log(result.user))
       .catch((err) => console.log(err.message));
@@ -39,7 +39,7 @@ const Register = () => {
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
-            <form onSubmit={handleOnSubmit} className="fieldset">
+            <form onSubmit={handleRegister} className="fieldset">
               <label className="label">Name</label>
               <input
                 type="text"

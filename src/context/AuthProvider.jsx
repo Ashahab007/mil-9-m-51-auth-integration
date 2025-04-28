@@ -1,6 +1,9 @@
 import React from "react";
 import { AuthContext } from "./AuthContext";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../firebase.init";
 
 // 1.4 by default react gives children to pass as props
@@ -10,11 +13,20 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
+  //   2.0 this register things (from 1.9) is also doing for login
+
+  const createLoginUser = (email, password) => {
+    // now from 'Sign in a user with an email address and password' from firebase documentation return the function
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+
   // 1.2 create the value by fetching or by manually set
   const userInfo = {
-    // email: "pot@alu.com",
-    // 1.11  set the createUser function in previously created object userInfo which will pass through below AuthContext and the data will share overall application. Primarilly u can see in NavBar because it's previously created without email and password because createUser function didnt call from Registration.
+    // email: "pot@alu.com", //1.2
+    // 1.11  set the createUser function in previously created object userInfo which will pass through below AuthContext and the data will share overall application. Primarily u can see in NavBar because it's previously created without email and password because createUser function didnt call from Registration.
     createUser,
+    // 2.1
+    createLoginUser,
   };
   // 1.3 apply AuthContext, pass userInfo in value as props
   return (
