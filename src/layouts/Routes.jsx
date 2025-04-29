@@ -6,6 +6,7 @@ import Register from "../components/Register/Register";
 import Root from "../Root/Root";
 import Order from "../components/Order/Order";
 import MyList from "../components/MyList/MyList";
+import PrivateRoutes from "../components/PrivateRoutes/PrivateRoutes";
 
 // 1.0 If i want to share the state of user  authentication data across  the application i.e is user is logged in. this logged in status is shown  in other tabs of navbar. generally we can use context api. but i have to show the data in multiple section of the web. in that case context api cannot be used. it cannot give reusability. my requirement is reusability. i.e this authentication status is used in registration, navbar, login. That's why created a context folder in src file. created 2 file 1. AuthContext, AuthProvider.
 
@@ -17,7 +18,15 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "register", Component: Register },
       { path: "login", Component: Login },
-      { path: "order", Component: Order },
+      // 5.5 use element instead of component and set the PrivateRoutes and in the PrivateRoutes set Order element as children
+      {
+        path: "order",
+        element: (
+          <PrivateRoutes>
+            <Order></Order>
+          </PrivateRoutes>
+        ),
+      },
       { path: "mylist", Component: MyList },
     ],
   },
