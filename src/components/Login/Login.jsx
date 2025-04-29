@@ -1,11 +1,16 @@
 import React, { use } from "react";
-import { Link, Navigate, useNavigate } from "react-router";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   // 2.2
   const { createLoginUser } = use(AuthContext);
   console.log(createLoginUser);
+
+  // 10.3 as the dashboard redirects to login page so another useLocation is set in Login page
+
+  const location = useLocation();
+  console.log(location); //Now we can get the state in console that is set in PrivateRoutes
 
   // 8.0 now my requirement is after login go to a specific page thats why use useNavigate
   const navigate = useNavigate();
@@ -22,7 +27,10 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         // 8.1 use navigate here after user status found
-        navigate("/");
+        // navigate("/");
+
+        // 10.4 as we found the state now we will redirect page conditionally as the state is null it will redirect to home page otherwise it will open the desired page.
+        navigate(location.state ? location.state : "/");
       })
       .catch((err) => console.log(err.message));
   };

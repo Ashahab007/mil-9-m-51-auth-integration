@@ -21,7 +21,7 @@ const NavBar = () => {
   const handleSignOut = () => {
     createSignOutUser()
       .then(() => {
-        // remember this then will not take any parameter for signOut
+        // remember, then will not take any parameter for signOut
         console.log("signout successful");
       })
       .catch((err) => console.log(err.message));
