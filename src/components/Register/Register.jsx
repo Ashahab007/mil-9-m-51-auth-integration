@@ -1,6 +1,6 @@
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 // import { auth } from "../../firebase.init";
 
@@ -9,7 +9,7 @@ const Register = () => {
   // const userInfo = use(AuthContext);
   // console.log(userInfo); //as the useInfo contains the function createUser so destructured it in 1.13
 
-  // 1.13 destructuring it for calling and commented the 1.12
+  // 1.13 destructuring it for calling and commented 1.12
 
   const { createUser } = use(AuthContext);
   console.log(createUser);

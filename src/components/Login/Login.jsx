@@ -1,11 +1,14 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   // 2.2
   const { createLoginUser } = use(AuthContext);
   console.log(createLoginUser);
+
+  // 8.0 now my requirement is after login go to a specific page thats why use useNavigate
+  const navigate = useNavigate();
 
   // 2.3 created handle login and get the data from the form
   const handleLogIn = (e) => {
@@ -14,9 +17,13 @@ const Login = () => {
     const password = e.target.password.value;
     console.log(email, password);
 
-    // 2.5 call the destructured createLoginUser function
+    // 2.5 call the destructured createLoginUser function and pass the email, password as parameter
     createLoginUser(email, password)
-      .then((result) => console.log(result.user))
+      .then((result) => {
+        console.log(result.user);
+        // 8.1 use navigate here after user status found
+        navigate("/");
+      })
       .catch((err) => console.log(err.message));
   };
 

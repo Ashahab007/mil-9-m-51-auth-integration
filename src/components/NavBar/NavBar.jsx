@@ -48,7 +48,7 @@ const NavBar = () => {
         {" "}
         <li className="mr-6">Register</li>
       </NavLink>
-      {/* 4.5 created two button Order and mylist with component and show that button conditionally by login and sign out. If user logged in the created button will show if nor it will hide */}
+      {/* 4.5 created two button Order and Profile with component and show that button conditionally by login and sign out. If user logged in the created button will show if not it will hide */}
       {user && (
         <>
           <NavLink
@@ -66,6 +66,13 @@ const NavBar = () => {
           </NavLink>
         </>
       )}
+      {/* 9.0 My requirement is created a Component which will be created by private route and user if not logged in the button will be visible in navbar but upon click it will redirect to the login page */}
+      <NavLink
+        to="/dashboard"
+        className={({ isActive }) => (isActive ? "underline" : "")}
+      >
+        <li className="mr-6">Dashboard</li>
+      </NavLink>
     </>
   );
   return (
