@@ -18,14 +18,14 @@ const AuthProvider = ({ children }) => {
 
   // 1.10 declare a function createUser with email and password (here email and password is used as parameter because for the createUserWithEmailAndPassword it takes auth, email, password. auth can import, for email and password will be got by calling the createUser function with parameter from Registration.jsx ) and return the function createUserWithEmailAndPassword. This function is from  firebase documentation.
   const createUser = (email, password) => {
-    setLoading(true); //6.5 showing loading spinner but not working
+    setLoading(true); //6.5 showing loading spinner
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //   2.0 this register things (from 1.9) is also doing for login
 
   const createLoginUser = (email, password) => {
-    setLoading(true); //6.5 showing loading spinner but not working
+    setLoading(true); //6.5 showing loading spinner
     // now from 'Sign in a user with an email address and password' from firebase documentation return the function
     return signInWithEmailAndPassword(auth, email, password);
   };
@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
   // 4.0 Now my requirement is onclick to sign out button the user will signout. that's why createSignOutUser is created like createLoginUser. call the signOut() function from documentation from password authentication 'Enable email enumeration protection'.
 
   const createSignOutUser = () => {
-    setLoading(true); //6.5 showing loading spinner but not working
+    setLoading(true); //6.5 showing loading spinner
     return signOut(auth); //takes one parameter auth
   };
 
@@ -57,10 +57,10 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         console.log("inside useEffect on auth state change", currentUser);
+        // 6.1 set the setLoading false i.e before getting the user the loading spinner will off
+        setLoading(false);
         // 3.3 get the saved currentUser
         setUser(currentUser);
-        // 6.1 set the setLoading false
-        setLoading(false);
       }
       return () => {
         //this return is used to clean up memory after unmount the application or reload
@@ -76,12 +76,16 @@ const AuthProvider = ({ children }) => {
     createUser,
     // 2.1
     createLoginUser,
-    // 3.3 pass the user in userInfo so we can get the user data from any where from the application
+    // 3.4 pass the user in userInfo so we can get the user data from any where from the application
     user,
     // 4.1 pass to the context
     createSignOutUser,
-    // 6.2 pass to the context to show the loading state also in PrivateRoutes
+    // 6.2 pass to the context to show the loading state in PrivateRoutes and also pass the setLoading to pass to the NavBar to handleSignOut
     loading,
+    setLoading,
+
+    // 3.4 pass also the setUser in userInfo
+    setUser,
   };
 
   // 1.3 apply AuthContext, pass userInfo in value as props

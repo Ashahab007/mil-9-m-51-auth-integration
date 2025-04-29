@@ -8,21 +8,26 @@ const NavBar = () => {
   /* const userInfo = use(AuthContext);
   console.log(userInfo); */ //{email: 'pot@alu.com'}
 
-  // 3.4 now we will destructure only passed user from userInfo
+  // 3.5 now we will destructure only passed user and setUser (Note: this setUser is passed as the user state is changed upon logout which will be set on handleSignOut ) from userInfo
   // 4.2 receive createSignOutUser and destructure it
-  const { user, createSignOutUser } = use(AuthContext);
-  console.log(" passed user to NavBar", user);
+  // 6.6 receive the setLoading
+  const { user, createSignOutUser, setUser, setLoading } = use(AuthContext);
+  console.log("passed user to NavBar", user);
   console.log(
     " receive createSignOutUser from AuthProvider",
     createSignOutUser
   );
 
-  // 4.4 created handleSignOut
+  // 4.4 created handleSignOut function
   const handleSignOut = () => {
     createSignOutUser()
       .then(() => {
         // remember, then will not take any parameter for signOut
         console.log("signout successful");
+        // 4.5 setUser to null for successfully sign out
+        setUser(null);
+        // 6.7 stop the loading spinner
+        setLoading(false);
       })
       .catch((err) => console.log(err.message));
   };
@@ -48,7 +53,7 @@ const NavBar = () => {
         {" "}
         <li className="mr-6">Register</li>
       </NavLink>
-      {/* 4.5 created two button Order and Profile with component and show that button conditionally by login and sign out. If user logged in the created button will show if not it will hide */}
+      {/* 4.6 created two button Order and Profile with component and show that button conditionally by login and sign out. If user logged in the created button will show if not it will hide */}
       {user && (
         <>
           <NavLink
@@ -108,7 +113,7 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {/* 3.5 now my button will toggle if user is sign in or sign out  */}
+        {/* 3.6 now my button will toggle if user is sign in or sign out  */}
         {user ? (
           // 4.3 create handleSignOut & showing the user email
           <>

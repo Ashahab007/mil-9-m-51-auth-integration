@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router";
 
 // 10.0 As the dashboard is in private route but u can see it publicly. when clicking on it it will show the login page. My requirement is when clicking in dashboard and successfully logged in it will redirect to the dashboard.
 
-// 5.0 As from 4.0 we have created to show some button after login and hide after logout. But there is a problem, after logout if u manually type in search bar by the component path name it will redirect that page. For this reason we need to create a private route stop that redirection if user not logged in.
+// 5.0 As from 4.6 we have created to show some button after login and hide after logout. But there is a problem, after logout if u manually type in search bar by the component path name it will redirect that page. For this reason we need to create a private route to stop that redirection if user not logged in.
 
 // 5.3 pass the children as props which is given by default by react router
 
@@ -19,10 +19,10 @@ const PrivateRoutes = ({ children }) => {
   const { user, loading } = use(AuthContext);
   console.log(user);
 
-  //   6.4 show the loading spinner during redirection i.e before checking user status it will loading. This loading will show those components that are created in PrivateRoutes. Commented due to showing problem. need to fix by support session.
-  /* if (loading) {
+  //   6.4 created the loading spinner for showing during redirection i.e before checking user status it will loading. This loading will show those components that are created in PrivateRoutes.
+  if (loading) {
     return <span className="loading loading-infinity loading-xl"></span>;
-  } */
+  }
 
   // 5.2 make a condition that user is present or not
   if (!user) {
