@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "register", Component: Register },
       { path: "login", Component: Login },
-      // 5.5 use element instead of component and set the PrivateRoutes and in the PrivateRoutes set Order element as children
+      // 5.5 use element instead of component and set the PrivateRoutes as element and in the PrivateRoutes set Order element as children
       {
         path: "order",
         element: (
