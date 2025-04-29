@@ -58,11 +58,11 @@ const NavBar = () => {
             <li className="mr-6">Order</li>
           </NavLink>
           <NavLink
-            to="/mylist"
+            to="/profile"
             className={({ isActive }) => (isActive ? "underline" : "")}
           >
             {" "}
-            <li className="mr-6">My List</li>
+            <li className="mr-6">Profile</li>
           </NavLink>
         </>
       )}
